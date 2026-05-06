@@ -59,14 +59,14 @@ export default function Home() {
   const allFinished =
     items.length > 0 && stats.queued === 0 && stats.pending === 0;
 
-  const tsvValue = useMemo(() => {
-    const rows = items
-      .filter((i) => i.status === "done")
-      .map((i) => i.tsv);
-    if (rows.length === 0) return "";
-    const header = columns.join("\t");
-    return [header, ...rows].join("\n");
-  }, [items, columns]);
+  const tsvValue = useMemo(
+    () =>
+      items
+        .filter((i) => i.status === "done")
+        .map((i) => i.tsv)
+        .join("\n"),
+    [items],
+  );
 
   const processFile = useCallback(
     async (file: File, id: string, cols: string[]) => {
